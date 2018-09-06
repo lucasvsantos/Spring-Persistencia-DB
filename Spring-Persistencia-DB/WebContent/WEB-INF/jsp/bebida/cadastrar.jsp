@@ -17,17 +17,22 @@
 			${msg }
 		</div>	
 	</c:if>
-	<form action="cadastrar" method="post">
-		<label for="nome">Nome</label>
-		<input type="text" name="nome" id="nome"/>
-		
-		<label for="alcoolico">Alcoolico?</label>
-		<input type="checkbox" name="alcoolico" id="alcoolico" />
-		
-		<label for="validade">Validade</label>
-		<input type="text" name="validade" id="validade">
-		
-		<input type="submit" value="Enviar">
+	<form action="cadastrar" method="post" >
+		<div>
+			<label for="nome">Nome</label>
+			<input type="text" name="nome" id="nome" class="form-control"/>
+		</div>
+		<div>
+			<label for="alcoolico">Alcoolico?</label>
+			<input type="checkbox" name="alcoolico" id="alcoolico" />
+		</div>
+		<div>
+			<label for="validade">Validade</label>
+			<input type="text" name="validade" id="validade" class="form-control" /> 
+		</div>
+		<div>
+			<input type="submit" value="Enviar">
+		</div>
 	</form>
 </tags:template>
 

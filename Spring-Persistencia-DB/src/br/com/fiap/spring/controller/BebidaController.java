@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fiap.jpa.dao.BebidaDAO;
+import br.com.fiap.jpa.exception.KeyNotFoundException;
 import br.com.fiap.spring.model.Bebida;
 
 @Controller
@@ -44,14 +45,42 @@ public class BebidaController {
 		ModelAndView retorno = new ModelAndView("redirect:/bebida/cadastrar");
 		bebidaDAO.create(bebida);
 		r.addFlashAttribute("bebida", bebida);
-		r.addFlashAttribute("msg", "Bebida cadastrada!!!!");
+		r.addFlashAttribute("msg", "Bebida cadastrada!");
 		return retorno;
+	}
+	
+	@Transactional
+	@PostMapping("editar")
+	public String processarEdicao(Bebida bebida, RedirectAttributes r) {
+		r.addFlashAttribute("msg", "Bebida atualizada!");
+		bebidaDAO.update(bebida);
+		return "redirect:/bebida/listar";
 	}
 	
 	@GetMapping("editar/{id}")
 	public ModelAndView abrirEdicao(@PathVariable("id") int codigo) {
 		return new ModelAndView("bebida/editar").addObject("bebida", bebidaDAO.read(codigo));
 	}
-
 	
+	@Transactional
+	@PostMapping("remover")
+	public String remover(int codigo) {
+		try {
+			bebidaDAO.delete(codigo);
+		} catch (KeyNotFoundException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/bebida/listar";
+	}
+	
+	@PostMapping("pesquisar")
+	public ModelAndView pesquisar(String nome) {
+		ModelAndView retorno = new ModelAndView("bebida/lista");
+		List<Bebida> bebidas = new ArrayList<>();
+		nome = nome.toLowerCase();
+		bebidas.addAll(bebidaDAO.buscarPorNome(nome));
+		retorno.addObject("bebidas", bebidas);
+		return retorno;
+	}
+		
 }

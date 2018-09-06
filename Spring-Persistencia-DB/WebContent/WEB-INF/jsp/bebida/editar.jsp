@@ -15,7 +15,6 @@
 			
 			<form:checkbox path="alcoolico" />
 			<form:label path="alcoolico">Alcoolico</form:label>
-			
 			<form:label path="validade">Validade</form:label>
 			<form:input path="validade" cssClass="form-control" />
 			<form:hidden path="codigo"/>

@@ -14,7 +14,7 @@ public class GenericDAOImpl<T,K>
 
 	//Não precisamos mais instanciar o EntityManager
 	@PersistenceContext
-	private EntityManager em;
+	protected EntityManager em;
 	
 	private Class<T> clazz;
 	
@@ -51,7 +51,7 @@ public class GenericDAOImpl<T,K>
 
 	@Override
 	public List<T> list() {
-		return em.createQuery("from "+ clazz.getName(),clazz).getResultList();
+		return em.createQuery("from "+ clazz.getName() + " order by id",clazz).getResultList();
 	}
 
 }
